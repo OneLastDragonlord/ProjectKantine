@@ -19,7 +19,6 @@ public class Kantine {
     public void loopPakSluitAan() {
         Persoon jan = new Persoon();
         Dienblad vanJan = new Dienblad(jan);
-        this.kassarij = new KassaRij();
         Artikel artikel1 = new Artikel("ijs", 10);
         Artikel artikel2 = new Artikel("koek", 20);
         vanJan.voegToe(artikel1);

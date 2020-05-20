@@ -3,7 +3,6 @@ import java.util.LinkedList;
 
 public class KassaRij {
     private ArrayList<Dienblad> personen;
-    private int klantnummer = 0;
     /**
      * Constructor
      */
@@ -28,9 +27,8 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         if(erIsEenRij()) {
-            Dienblad eerste = personen.get(klantnummer);
-            personen.remove(klantnummer);
-            this.klantnummer++;
+            Dienblad eerste = personen.get(0);
+            personen.remove(0);
             return eerste;
         }
         return null;
