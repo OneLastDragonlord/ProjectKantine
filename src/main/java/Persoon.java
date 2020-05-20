@@ -14,7 +14,7 @@ public class Persoon {
     }
 
     public Persoon() {
-        this.geslacht= 'U';
+        this.geslacht= 'O';
         this.geboorteDatum = null;
         getGeslacht();
         getGeboorteDatum();
