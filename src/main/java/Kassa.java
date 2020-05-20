@@ -20,8 +20,8 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        this.geld += klant.getTotaalPrijs();
-        this.artikelen += klant.getAantalArtikelen();
+        this.geld += getTotaalPrijs(klant);
+        this.artikelen += getAantalArtikelen(klant);
     }
 
     /**
@@ -60,4 +60,25 @@ public class Kassa {
     public void setGeld(double geld) {
         this.geld = geld;
     }
+
+     public double getTotaalPrijs(Dienblad klant) {
+        double prijs = 0;
+         while (klant.getArtikel().hasNext()) {
+              prijs += klant.getArtikel().next().getPrijs();
+
+            //System.out.println(klant.getArtikel().next());
+         }
+         return  prijs;
+     }
+
+     public int getAantalArtikelen(Dienblad klant){
+        int hoeveelArtikelen = 0;
+        while (klant.getArtikel().hasNext()) {
+            hoeveelArtikelen++;
+            System.out.println(hoeveelArtikelen);
+          }
+        return hoeveelArtikelen;
+
+        }
+
 }

@@ -1,18 +1,18 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Dienblad {
-    private ArrayList<Artikel> artikelen;
+    private Stack<Artikel> artikelen;
     private Persoon klant;
 
     /**
      * Constructor
      */
     public Dienblad() {
-        artikelen = new ArrayList<>();
+        artikelen = new Stack<>();
     }
 
     public Dienblad(Persoon klant) {
-        artikelen = new ArrayList<>();
+        artikelen = new Stack<>();
         this.klant = klant;
     }
 
@@ -22,7 +22,7 @@ public class Dienblad {
      * @param artikel
      */
     public void voegToe(Artikel artikel) {
-        artikelen.add(artikel);
+        artikelen.push(artikel);
     }
 
     /**
@@ -30,21 +30,20 @@ public class Dienblad {
      *
      * @return Het aantal artikelen
      */
-    public int getAantalArtikelen() {
-        return artikelen.size();
-    }
 
-    /**
-     * Methode om de totaalprijs van de artikelen op dienblad uit te rekenen
-     *
-     * @return De totaalprijs
-     */
-    public double getTotaalPrijs() {
-        double prijs = 0;
-        for(Artikel artikel : artikelen){
-            prijs += artikel.getPrijs();
+
+
+    public Iterator<Artikel> getArtikel(){
+        Iterator<Artikel> artikelIterator = artikelen.iterator();
+        return artikelIterator;
+    }
+    public void getArtikelen() {
+        Iterator<Artikel> artikelIterator = artikelen.iterator();
+        while (artikelIterator.hasNext()) {
+
+
+            System.out.println(artikelIterator.next().getPrijs());
         }
-        return prijs;
     }
 }
 
