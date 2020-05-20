@@ -55,7 +55,7 @@ public class Datum {
 				aantalDagen = ((jaar % 4) == 0) ? 29 : 28;
 				break;
 		}
-		return (dag > aantalDagen || dag < 1 || jaar < 1900 || jaar > 2019);
+		return !(dag > aantalDagen || dag < 1 || jaar < 1900 || jaar > 2019);
 	}
 	public boolean bestaatDatum2(int dag, int maand, int jaar) {
 		if(jaar >= 1900 && jaar <= 2100){

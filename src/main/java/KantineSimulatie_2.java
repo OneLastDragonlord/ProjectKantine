@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class KantineSimulatie {
+public class KantineSimulatie_2 {
 
     // kantine
     private Kantine kantine;
@@ -37,14 +37,14 @@ public class KantineSimulatie {
      * Constructor
      *
      */
-    public KantineSimulatie() {
+    public KantineSimulatie_2() {
         kantine = new Kantine();
         random = new Random();
         int[] hoeveelheden =
                 getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
-        kantine.setKantineAanbod(kantineaanbod);
+        //kantine.setKantineAanbod(kantineaanbod);
     }
 
     /**
@@ -100,7 +100,7 @@ public class KantineSimulatie {
      *
      * @param dagen
      */
-    public void simuleer(int dagen) {
+    /*public void simuleer(int dagen) {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -137,5 +137,5 @@ public class KantineSimulatie {
             // reset de kassa voor de volgende dag
 
         }
-    }
+    }*/
 }

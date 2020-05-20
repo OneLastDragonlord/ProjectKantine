@@ -23,11 +23,11 @@ public class Kantine {
     /**
      * Deze methode handelt de rij voor de kassa af.
      */
-    public void verwerkRijVoorKassa() {
+    /*public void verwerkRijVoorKassa() {
         while () {
             // omitted
         }
-    }
+    }*/
 
     /**
      * Deze methode telt het geld uit de kassa
@@ -36,6 +36,7 @@ public class Kantine {
      */
     public double hoeveelheidGeldInKassa() {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -45,6 +46,7 @@ public class Kantine {
      */
     public int aantalArtikelen() {
         // method body omitted
+        return 0;
     }
 
     /**
