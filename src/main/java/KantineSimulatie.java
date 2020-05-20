@@ -21,7 +21,7 @@ public class KantineSimulatie {
 
         // herhaal voor elke dag
         for (int i = 0; i < dagen; i++) {
-
+            System.out.println("dag "+i);
             // per dag nu even vast 10 + i personen naar binnen
             // laten gaan, wordt volgende week veranderd...
 

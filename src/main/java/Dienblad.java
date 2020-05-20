@@ -31,19 +31,10 @@ public class Dienblad {
      * @return Het aantal artikelen
      */
 
-
-
-    public Iterator<Artikel> getArtikel(){
-        Iterator<Artikel> artikelIterator = artikelen.iterator();
-        return artikelIterator;
+    public Iterator<Artikel> getIterator(){
+        Iterator<Artikel> itr = artikelen.iterator();
+        return itr;
     }
-    public void getArtikelen() {
-        Iterator<Artikel> artikelIterator = artikelen.iterator();
-        while (artikelIterator.hasNext()) {
 
-
-            System.out.println(artikelIterator.next().getPrijs());
-        }
-    }
 }
 

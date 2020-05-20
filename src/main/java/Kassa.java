@@ -4,6 +4,7 @@ public class Kassa {
 
     private int artikelen;
     private double geld;
+
     /**
      * Constructor
      */
@@ -41,7 +42,7 @@ public class Kassa {
      * @return hoeveelheid geld in de kassa
      */
     public double hoeveelheidGeldInKassa() {
-       return this.geld;
+        return this.geld;
     }
 
     /**
@@ -60,25 +61,27 @@ public class Kassa {
     public void setGeld(double geld) {
         this.geld = geld;
     }
-
-     public double getTotaalPrijs(Dienblad klant) {
+    /**
+     * totaalprijs per Dienblad
+     */
+    public double getTotaalPrijs(Dienblad klant) {
         double prijs = 0;
-         while (klant.getArtikel().hasNext()) {
-              prijs += klant.getArtikel().next().getPrijs();
-
-            //System.out.println(klant.getArtikel().next());
-         }
-         return  prijs;
-     }
-
-     public int getAantalArtikelen(Dienblad klant){
-        int hoeveelArtikelen = 0;
-        while (klant.getArtikel().hasNext()) {
-            hoeveelArtikelen++;
-            System.out.println(hoeveelArtikelen);
-          }
-        return hoeveelArtikelen;
-
+        Iterator<Artikel> itr = klant.getIterator();
+        while (itr.hasNext()) {
+            prijs += itr.next().getPrijs();
         }
+        return prijs;
+    }
 
+    public int getAantalArtikelen(Dienblad klant) {
+        int hoeveelArtikelen = 0;
+        Iterator<Artikel> itr = klant.getIterator();
+        while(itr.hasNext()) {
+            itr.next();
+            hoeveelArtikelen++;
+        }
+        return hoeveelArtikelen;
+    }
 }
+
+
