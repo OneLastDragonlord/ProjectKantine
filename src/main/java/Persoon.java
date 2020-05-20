@@ -36,22 +36,34 @@ public class Persoon {
 
     public void setGeboorteDatum(Datum geboorteDatum) {this.geboorteDatum = geboorteDatum;}
 
-    public String getGeslacht() {return geslacht=='M'?"Man":geslacht=='V'?"Vrouw":"Onbekend";}
-
-    public void setGeslacht(char geslacht) {
-        if(isGeslacht(geslacht)){
-            this.geslacht = geslacht;
+    public String getGeslacht() {
+        switch(geslacht) {
+            case 'M':
+                return "Man";
+            case 'V':
+                return "Vrouw";
+            default:
+                return "Onbekend";
         }
     }
 
-    public boolean isGeslacht(char geslacht){
+    public void setGeslacht(char geslacht) {
+        if (geslacht=='M' || geslacht=='V'){
+            this.geslacht = geslacht;
+        } else{
+            System.out.println("geslacht bestaat niet");
+            this.geslacht = 'O';
+        }
+    }
+
+    /*public boolean isGeslacht(char geslacht){
         if(geslacht == 'M'|| geslacht== 'V' ){
             return true;
         } else {
             System.out.println("geslacht bestaat niet");
             return false;
         }
-    }
+    }*/
 
     public String toString(){
         return getBSN()+", "+ getVoornaam()+", "+ getAchternaam()+", "+ getGeboorteDatum()+", "+ getGeslacht();
