@@ -17,4 +17,8 @@ public class Artikel {
     public void setPrijs(String naam) {this.naam = naam;}
 
     public double getPrijs() {return prijs;}
+
+    public String toString(){
+        return getNaam()+", "+ getPrijs();
+    }
 }

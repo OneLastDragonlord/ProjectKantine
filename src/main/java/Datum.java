@@ -111,7 +111,8 @@ public class Datum {
 	 * @return Geboortedatum
 	 */
 	public String getDatumAsString() {
-		// TODO
-		return "";
+
+		return getDag() + "-" + getMaand() + "-" + getJaar();
+
 	}
 }
