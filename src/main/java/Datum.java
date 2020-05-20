@@ -34,6 +34,30 @@ public class Datum {
 	public int getJaar() {return jaar;}
 
 	public boolean bestaatDatum(int dag, int maand, int jaar) {
+		int aantalDagen = dag - 1;
+		switch (maand) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				aantalDagen = 31;
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				aantalDagen = 30;
+				break;
+			case 2:
+				aantalDagen = ((jaar % 4) == 0) ? 29 : 28;
+				break;
+		}
+		return (dag > aantalDagen || dag < 1 || jaar < 1900 || jaar > 2019);
+	}
+	public boolean bestaatDatum2(int dag, int maand, int jaar) {
 		if(jaar >= 1900 && jaar <= 2100){
 			if (dag > 0 && dag <= 31) {
 				if(maand > 0 && maand <= 12) {
