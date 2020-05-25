@@ -100,7 +100,7 @@ public class KantineSimulatie_2 {
      *
      * @param dagen
      */
-    /*public void simuleer(int dagen) {
+    public void simuleer(int dagen) {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -137,5 +137,5 @@ public class KantineSimulatie_2 {
             // reset de kassa voor de volgende dag
 
         }
-    }*/
+    }
 }

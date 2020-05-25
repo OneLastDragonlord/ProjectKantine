@@ -2,7 +2,7 @@ public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
-
+    private KantineAanbod kantineAanbod;
     /**
      * Constructor
      */
@@ -16,14 +16,11 @@ public class Kantine {
      * Artikelen aan en plaats deze op het dienblad. Tenslotte sluit de Persoon zich aan bij de rij
      * voor de kassa.
      */
-    public void loopPakSluitAan() {
-        Persoon jan = new Persoon();
-        Dienblad vanJan = new Dienblad(jan);
-        Artikel artikel1 = new Artikel("ijs", 10);
-        Artikel artikel2 = new Artikel("koek", 20);
-        vanJan.voegToe(artikel1);
-        vanJan.voegToe(artikel2);
-        kassarij.sluitAchteraan(vanJan);
+    public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
+        for(String artikel : artikelnamen){
+           dienblad.voegToe(kantineAanbod.getArtikel(artikel));
+        }
+        kassarij.sluitAchteraan(dienblad);
     }
 
     /**
@@ -41,4 +38,11 @@ public class Kantine {
        return kassa;
    }
 
+    public void setKantineAanbod(KantineAanbod kantineAanbod) {
+        this.kantineAanbod = kantineAanbod;
+    }
+
+    public KantineAanbod getKantineAanbod() {
+        return kantineAanbod;
+    }
 }

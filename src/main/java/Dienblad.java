@@ -36,5 +36,8 @@ public class Dienblad {
         return itr;
     }
 
+    public void setKlant(Persoon klant) {
+        this.klant = klant;
+    }
 }
 

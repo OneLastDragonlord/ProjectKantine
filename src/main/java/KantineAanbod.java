@@ -7,6 +7,7 @@ public class KantineAanbod {
     private HashMap<String, Double> prijzen;
 
     /**
+     * Je gebruikt een HashMap als je dezelfde waardes wilt opslaan
      * Constructor. Het eerste argument is een lijst met artikelnamen, het tweede argument is
      * eenlijst met prijzen en het derde argument is een lijst met hoeveelheden. Let op: de
      * dimensies van de drie arrays moeten wel gelijk zijn!
