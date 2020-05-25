@@ -27,7 +27,7 @@ public class KantineSimulatie {
 
             // for lus voor personen
             for (int j = 0; j < 10 + i; j++) {
-                 kantine.loopPakSluitAan();
+                 //kantine.loopPakSluitAan();
             }
 
             // verwerk rij voor de kassa

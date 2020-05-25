@@ -68,7 +68,9 @@ public class Kassa {
         double prijs = 0;
         Iterator<Artikel> itr = klant.getIterator();
         while (itr.hasNext()) {
-            prijs += itr.next().getPrijs();
+            double temp = itr.next().getPrijs();
+            prijs += temp;
+            System.out.println(temp);
         }
         return prijs;
     }
@@ -77,7 +79,7 @@ public class Kassa {
         int hoeveelArtikelen = 0;
         Iterator<Artikel> itr = klant.getIterator();
         while(itr.hasNext()) {
-            itr.next();
+            System.out.println(itr.next().getNaam());
             hoeveelArtikelen++;
         }
         return hoeveelArtikelen;

@@ -43,8 +43,7 @@ public class KantineSimulatie_2 {
         int[] hoeveelheden =
                 getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
-
-        //kantine.setKantineAanbod(kantineaanbod);
+        kantine.setKantineAanbod(kantineaanbod);
     }
 
     /**
@@ -105,36 +104,36 @@ public class KantineSimulatie_2 {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+            int aantalpersonen = 1 ;
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+                Persoon persoon = new Persoon();
+                Dienblad dienblad = new Dienblad(persoon);
+                int aantalartikelen = 4;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                array int[] tepakken = getRandomArray(
+                int[] tepakken = getRandomArray(
                     aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
                 String[] artikelen = geefArtikelNamen(tepakken);
-
+                kantine.loopPakSluitAan(dienblad,artikelen);
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
 
             }
-
             // verwerk rij voor de kassa
-
-            // druk de dagtotalen af en hoeveel personen binnen
-
-            // zijn gekomen
-
+            kantine.verwerkRijVoorKassa();
+            // toon dagtotalen (artikelen en geld in kassa)
+            System.out.printf("%s, %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
             // reset de kassa voor de volgende dag
+            kantine.getKassa().resetKassa();
 
         }
     }
