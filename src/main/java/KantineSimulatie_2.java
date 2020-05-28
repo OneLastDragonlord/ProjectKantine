@@ -119,8 +119,6 @@ public class KantineSimulatie_2 {
             int studentInt = 89;
             int docentInt = 99;
 
-
-
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
