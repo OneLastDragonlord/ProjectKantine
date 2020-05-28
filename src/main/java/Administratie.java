@@ -12,7 +12,7 @@ public class Administratie {
     public static double berekenGemiddeldAantal(int[] aantal) {
         double totaal = 0;
         for (int hoeveel : aantal){
-            totaal += hoeveel;// method body omitted
+            totaal += hoeveel;
         }
         return totaal/aantal.length;
     }
