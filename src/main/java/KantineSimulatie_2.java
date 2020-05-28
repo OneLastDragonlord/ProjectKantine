@@ -21,6 +21,14 @@ public class KantineSimulatie_2 {
     // prijzen
     private static double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65};
 
+    public static int getMinArtikelenPerSoort() {
+        return MIN_ARTIKELEN_PER_SOORT;
+    }
+
+    public static int getMaxArtikelenPerSoort() {
+        return MAX_ARTIKELEN_PER_SOORT;
+    }
+
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10;
     private static final int MAX_ARTIKELEN_PER_SOORT = 20;
@@ -101,18 +109,40 @@ public class KantineSimulatie_2 {
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
+        int[] aantalKlanten = new int[dagen];
+        double[] omzet = new double[dagen];
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 1 ;
+            int aantalpersonen = 100 ;
+            Random randomInt = new Random();
+            int studentInt = 89;
+            int docentInt = 99;
+
+
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                Persoon persoon = new Persoon();
-                Dienblad dienblad = new Dienblad(persoon);
+                Dienblad dienblad;
+                int temp = randomInt.nextInt(aantalpersonen);
+                if(temp < studentInt) {
+                    Student persoon = new Student();
+                    dienblad = new Dienblad(persoon);
+                    System.out.println(temp+","+persoon.toString());
+                } else if (temp < docentInt){
+                    Docent persoon = new Docent();
+                    dienblad = new Dienblad(persoon);
+                    System.out.println(temp+","+persoon.toString());
+                } else {
+                    KantineMedewerker persoon = new KantineMedewerker();
+                    dienblad = new Dienblad(persoon);
+                    System.out.println(temp+","+persoon.toString());
+                }
+
+
                 int aantalartikelen = 4;
 
                 // genereer de "artikelnummers", dit zijn indexen
@@ -132,9 +162,14 @@ public class KantineSimulatie_2 {
             kantine.verwerkRijVoorKassa();
             // toon dagtotalen (artikelen en geld in kassa)
             System.out.printf("%s, %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
+            aantalKlanten[i] = kantine.getKassa().aantalArtikelen();
+            omzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();
 
         }
+        System.out.printf("%.2f\n", Administratie.berekenGemiddeldAantal(aantalKlanten));
+        System.out.printf("%.2f\n", Administratie.berekenGemiddeldeOmzet(omzet));
+        System.out.println(Arrays.toString(Administratie.berekenDagOmzet(omzet)));
     }
 }

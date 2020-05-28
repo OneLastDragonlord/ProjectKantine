@@ -59,7 +59,7 @@ public class KantineAanbod {
         } else {
             Artikel a = stapel.get(0);
             stapel.remove(0);
-            if (stapel.size() <= 10)
+            if (stapel.size() <= KantineSimulatie_2.getMinArtikelenPerSoort())
                 vulVoorraadAan(a.getNaam());
             return a;
         }
@@ -69,7 +69,7 @@ public class KantineAanbod {
      * Publieke methode om een artikel via naam van de stapel te pakken. Retouneert null als artikel
      * niet bestaat of niet op voorraad is.
      *
-     * @param naam (van artikel)
+     * @param productnaam (van artikel)
      * @return artikel (of null)
      */
     public Artikel getArtikel(String productnaam) {

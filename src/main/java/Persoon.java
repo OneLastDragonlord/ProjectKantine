@@ -65,7 +65,7 @@ public class Persoon {
         }
     }*/
 
-    public String toString(){
+    /*public String toString(){
         return getBSN()+", "+ getVoornaam()+", "+ getAchternaam()+", "+ getGeboorteDatum()+", "+ getGeslacht();
-    }
+    }*/
 }
