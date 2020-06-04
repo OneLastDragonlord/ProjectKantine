@@ -21,9 +21,31 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        this.geld += getTotaalPrijs(klant);
-        this.artikelen += getAantalArtikelen(klant);
+        Persoon persoon = klant.getKlant();
+        persoon.setBetaalwijze(new Contant());
+        System.out.println(persoon.getClass());
+        System.out.println(persoon instanceof KortingskaartHouder);
+        Betaalwijze betaalwijze = persoon.getBetaalwijze();
+        double korting = 0;
+        if(persoon instanceof KortingskaartHouder) {
+            KortingskaartHouder persoon1 = (KortingskaartHouder) persoon;
+            if(!persoon1.heeftMaximum()) {
+                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage()/100;
+            } else {
+                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage()/100;
+                if (korting > persoon1.geefMaximum()) {
+                    korting = 1;
+                }
+            }
+        }
+        if (betaalwijze.betaal(getTotaalPrijs(klant)-korting)) {
+            this.geld += (getTotaalPrijs(klant)-korting);
+            this.artikelen += getAantalArtikelen(klant);
+        } else {
+            System.out.println("Transactie geweigerd");
+        }
     }
+
 
     /**
      * Geeft het aantal artikelen dat de kassa heeft gepasseerd, vanaf het moment dat de methode

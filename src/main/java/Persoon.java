@@ -4,6 +4,7 @@ public class Persoon {
     private String achternaam;
     private Datum geboorteDatum;
     private char geslacht;
+    private Betaalwijze betaalwijze;
 
     public Persoon(int BSN, String voornaam, String achternaam, Datum geboorteDatum, char geslacht) {
         this.BSN = BSN;
@@ -54,6 +55,14 @@ public class Persoon {
             System.out.println("geslacht bestaat niet");
             this.geslacht = 'O';
         }
+    }
+
+    public Betaalwijze getBetaalwijze() {
+        return betaalwijze;
+    }
+
+    public void setBetaalwijze(Betaalwijze betaalwijze) {
+        this.betaalwijze = betaalwijze;
     }
 
     /*public boolean isGeslacht(char geslacht){

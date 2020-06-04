@@ -2,6 +2,9 @@ import java.util.*;
 
 public class Dienblad {
     private Stack<Artikel> artikelen;
+
+
+
     private Persoon klant;
 
     /**
@@ -34,6 +37,10 @@ public class Dienblad {
     public Iterator<Artikel> getIterator(){
         Iterator<Artikel> itr = artikelen.iterator();
         return itr;
+    }
+
+    public Persoon getKlant() {
+        return klant;
     }
 
     public void setKlant(Persoon klant) {

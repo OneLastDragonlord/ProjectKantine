@@ -1,0 +1,19 @@
+Opgave 1
+    c. kan alleen worden aangeroepen door overerving
+Opgave 3
+    a. Je kan geen instantie maken van een interface, dit zijn functies die de class moet hebben als de interface wordt geimplementeerd. ook zijn het lege functies.
+    b. je kan ook geen instantie maken van abstracte klassen want deze werken hetzelfde als de interfaces en hebben dus geen body.
+    c. nee
+    d. ja
+    e. ja
+    f. ja, dit is een standaard voor interfaces.
+    g. ja, een klasse die abstract is kan klassen van 0 tot 100% abstracte functies hebben.
+    h. door overerving kunnen veel functies meerdere uitkomsten hebben.
+        bij abstract moet je de bepaalde functies schrijven en bij iterfaces moet je elke functie schrijven.
+
+Opgave 4
+    a. ja want een abstract class mag ook zonder abstracte functies zijn.
+    b. nee alleen de specifieke klassen
+    c. je kan de interface een abstract class maken. want alle functies moeten gemaakt worden.
+    d. omdat je anders een lege instantievariabele hebt.
+    e. final kan niet worden overgeerfd en abstract wordt altijd overgeerfd.
