@@ -20,7 +20,7 @@ public class Kassa {
      *
      * @param klant die moet afrekenen
      */
-    public void rekenAf(Dienblad klant) {
+    public void rekenAf(Dienblad klant) throws TeWeinigGeldException {
         Persoon persoon = klant.getKlant();
         persoon.setBetaalwijze(new Contant());
         System.out.println(persoon.getClass());
