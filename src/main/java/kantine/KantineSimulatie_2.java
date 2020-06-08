@@ -1,3 +1,13 @@
+package kantine;
+
+import geldzaken.Administratie;
+import kantine.Dienblad;
+import kantine.Kantine;
+import kantine.KantineAanbod;
+import persoon.Docent;
+import persoon.KantineMedewerker;
+import persoon.Student;
+
 import java.util.*;
 
 public class KantineSimulatie_2 {
@@ -16,10 +26,10 @@ public class KantineSimulatie_2 {
 
     // artikelen
     private static final String[] artikelnamen =
-            new String[] {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
+            new String[]{"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
 
     // prijzen
-    private static double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65};
+    private static double[] artikelprijzen = new double[]{1.50, 2.10, 1.65, 1.65};
 
     public static int getMinArtikelenPerSoort() {
         return MIN_ARTIKELEN_PER_SOORT;
@@ -43,7 +53,6 @@ public class KantineSimulatie_2 {
 
     /**
      * Constructor
-     *
      */
     public KantineSimulatie_2() {
         kantine = new Kantine();
@@ -111,13 +120,18 @@ public class KantineSimulatie_2 {
         // for lus voor dagen
         int[] aantalKlanten = new int[dagen];
         double[] omzet = new double[dagen];
-        for(int i = 0; i < dagen; i++) {
+        for (int i = 0; i < dagen; i++) {
+
+            //niet random personen
+            int aantalpersonen = 3;
+            int studentInt = 1;
+            int docentInt = 2;
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 100 ;
-            Random randomInt = new Random();
-            int studentInt = 89;
-            int docentInt = 99;
+//            int aantalpersonen = 100 ;
+//            Random randomInt = new Random();
+//            int studentInt = 89;
+//            int docentInt = 99;
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
@@ -125,33 +139,34 @@ public class KantineSimulatie_2 {
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
                 Dienblad dienblad;
-                int temp = randomInt.nextInt(aantalpersonen);
-                if(temp < studentInt) {
+                //int temp = randomInt.nextInt(aantalpersonen);
+                if (j/*temp*/ < studentInt) {
                     Student persoon = new Student();
                     dienblad = new Dienblad(persoon);
-                    System.out.println(temp+","+persoon.toString());
-                } else if (temp < docentInt){
+                    System.out.println(j/*temp*/ + "," + persoon.toString());
+                } else if (j/*temp*/ < docentInt) {
                     Docent persoon = new Docent();
                     dienblad = new Dienblad(persoon);
-                    System.out.println(temp+","+persoon.toString());
+                    System.out.println(j/*temp*/ + "," + persoon.toString());
                 } else {
                     KantineMedewerker persoon = new KantineMedewerker();
                     dienblad = new Dienblad(persoon);
-                    System.out.println(temp+","+persoon.toString());
+                    System.out.println(j/*temp*/ + "," + persoon.toString());
                 }
 
 
-                int aantalartikelen = 4;
+                int aantalartikelen = 1;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
+
                 int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+                        aantalartikelen, 0, AANTAL_ARTIKELEN - 1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
                 String[] artikelen = geefArtikelNamen(tepakken);
-                kantine.loopPakSluitAan(dienblad,artikelen);
+                kantine.loopPakSluitAan(dienblad, artikelen);
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
 

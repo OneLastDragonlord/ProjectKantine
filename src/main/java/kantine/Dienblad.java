@@ -1,8 +1,12 @@
+package kantine;
+
+import kantine.Artikel;
+import persoon.Persoon;
+
 import java.util.*;
 
 public class Dienblad {
     private Stack<Artikel> artikelen;
-
 
 
     private Persoon klant;
@@ -34,9 +38,8 @@ public class Dienblad {
      * @return Het aantal artikelen
      */
 
-    public Iterator<Artikel> getIterator(){
-        Iterator<Artikel> itr = artikelen.iterator();
-        return itr;
+    public Iterator<Artikel> getIterator() {
+        return artikelen.iterator();
     }
 
     public Persoon getKlant() {

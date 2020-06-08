@@ -1,5 +1,8 @@
+package geldzaken;
+
 public class Administratie {
     final static int DAYS_IN_WEEK = 7;
+
     private Administratie() {
     }
 
@@ -11,10 +14,10 @@ public class Administratie {
      */
     public static double berekenGemiddeldAantal(int[] aantal) {
         double totaal = 0;
-        for (int hoeveel : aantal){
+        for (int hoeveel : aantal) {
             totaal += hoeveel;
         }
-        return totaal/aantal.length;
+        return totaal / aantal.length;
     }
 
     /**
@@ -25,10 +28,10 @@ public class Administratie {
      */
     public static double berekenGemiddeldeOmzet(double[] omzet) {
         double totaal = 0;
-        for (double geld : omzet){
+        for (double geld : omzet) {
             totaal += geld;
         }
-        return totaal/omzet.length;
+        return totaal / omzet.length;
     }
 
     /**
@@ -40,10 +43,10 @@ public class Administratie {
 
     public static double[] berekenDagOmzet(double[] omzet) {
         double[] temp = new double[DAYS_IN_WEEK];
-        for(int i = 0; i < DAYS_IN_WEEK; i++) {
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
 
             int j = 0;
-            while ( i + DAYS_IN_WEEK * j < omzet.length) {
+            while (i + DAYS_IN_WEEK * j < omzet.length) {
                 temp[i] += omzet[i + DAYS_IN_WEEK * j];
                 j++;
             }

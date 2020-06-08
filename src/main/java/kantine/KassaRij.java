@@ -1,9 +1,10 @@
+package kantine;
 
 import java.util.*;
-import java.util.LinkedList;
 
 public class KassaRij {
     private LinkedList<Dienblad> personen;
+
     /**
      * Constructor
      */
@@ -12,7 +13,7 @@ public class KassaRij {
     }
 
     /**
-     * Persoon sluit achter in de rij aan
+     * persoon.Persoon sluit achter in de rij aan
      *
      * @param klant
      */
@@ -27,9 +28,8 @@ public class KassaRij {
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
-        if(erIsEenRij()) {
-            Dienblad eerste = personen.pop();
-            return eerste;
+        if (erIsEenRij()) {
+            return personen.pop();
         }
         return null;
     }
@@ -40,6 +40,6 @@ public class KassaRij {
      * @return Of er wel of geen rij bestaat
      */
     public boolean erIsEenRij() {
-        return personen.size()>0;
+        return personen.size() > 0;
     }
 }

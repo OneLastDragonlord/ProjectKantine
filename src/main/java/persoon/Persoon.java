@@ -1,3 +1,8 @@
+package persoon;
+
+import geldzaken.Betaalwijze;
+import utility.Datum;
+
 public class Persoon {
     private int BSN;
     private String voornaam;
@@ -15,30 +20,46 @@ public class Persoon {
     }
 
     public Persoon() {
-        this.geslacht= 'O';
+        this.geslacht = 'O';
         this.geboorteDatum = null;
         getGeslacht();
         getGeboorteDatum();
     }
 
-    public int getBSN() {return BSN;}
+    public int getBSN() {
+        return BSN;
+    }
 
-    public void setBSN(int BSN) {this.BSN = BSN;}
+    public void setBSN(int BSN) {
+        this.BSN = BSN;
+    }
 
-    public String getVoornaam() {return voornaam;}
+    public String getVoornaam() {
+        return voornaam;
+    }
 
-    public void setVoornaam(String voornaam) {this.voornaam = voornaam;}
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
 
-    public String getAchternaam() {return achternaam;}
+    public String getAchternaam() {
+        return achternaam;
+    }
 
-    public void setAchternaam(String achternaam) {this.achternaam = achternaam;}
+    public void setAchternaam(String achternaam) {
+        this.achternaam = achternaam;
+    }
 
-    public String getGeboorteDatum() {return geboorteDatum!= null?geboorteDatum.getDatumAsString():"Onbekend";}
+    public String getGeboorteDatum() {
+        return geboorteDatum != null ? geboorteDatum.getDatumAsString() : "Onbekend";
+    }
 
-    public void setGeboorteDatum(Datum geboorteDatum) {this.geboorteDatum = geboorteDatum;}
+    public void setGeboorteDatum(Datum geboorteDatum) {
+        this.geboorteDatum = geboorteDatum;
+    }
 
     public String getGeslacht() {
-        switch(geslacht) {
+        switch (geslacht) {
             case 'M':
                 return "Man";
             case 'V':
@@ -49,9 +70,9 @@ public class Persoon {
     }
 
     public void setGeslacht(char geslacht) {
-        if (geslacht=='M' || geslacht=='V'){
+        if (geslacht == 'M' || geslacht == 'V') {
             this.geslacht = geslacht;
-        } else{
+        } else {
             System.out.println("geslacht bestaat niet");
             this.geslacht = 'O';
         }

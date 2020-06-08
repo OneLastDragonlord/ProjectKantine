@@ -1,7 +1,12 @@
+package geldzaken;
+
+import geldzaken.TeWeinigGeldException;
+
 public abstract class Betaalwijze {
 
     protected double saldo;
     //
+
     /**
      * Methode om krediet te initialiseren
      *
@@ -17,5 +22,5 @@ public abstract class Betaalwijze {
      * @param tebetalen
      * @return Boolean om te kijken of er voldoende saldo is
      */
-    public abstract boolean betaal(double tebetalen);
+    public abstract void betaal(double tebetalen) throws TeWeinigGeldException;
 }

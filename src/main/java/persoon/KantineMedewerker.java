@@ -1,4 +1,9 @@
-public class KantineMedewerker extends Persoon implements KortingskaartHouder{
+package persoon;
+
+import geldzaken.KortingskaartHouder;
+import utility.Datum;
+
+public class KantineMedewerker extends Persoon implements KortingskaartHouder {
     private int nummer;
     private boolean kassa;
 

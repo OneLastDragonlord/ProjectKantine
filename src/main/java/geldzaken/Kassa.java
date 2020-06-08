@@ -1,3 +1,10 @@
+package geldzaken;
+
+import kantine.Artikel;
+import kantine.Dienblad;
+import kantine.KassaRij;
+import persoon.Persoon;
+
 import java.util.Iterator;
 
 public class Kassa {
@@ -20,29 +27,29 @@ public class Kassa {
      *
      * @param klant die moet afrekenen
      */
-    public void rekenAf(Dienblad klant) throws TeWeinigGeldException {
+    public void rekenAf(Dienblad klant) {
         Persoon persoon = klant.getKlant();
         persoon.setBetaalwijze(new Contant());
-        System.out.println(persoon.getClass());
         System.out.println(persoon instanceof KortingskaartHouder);
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
         double korting = 0;
-        if(persoon instanceof KortingskaartHouder) {
+        if (persoon instanceof KortingskaartHouder) {
             KortingskaartHouder persoon1 = (KortingskaartHouder) persoon;
-            if(!persoon1.heeftMaximum()) {
-                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage()/100;
+            if (!persoon1.heeftMaximum()) {
+                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage() / 100;
             } else {
-                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage()/100;
+                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage() / 100;
                 if (korting > persoon1.geefMaximum()) {
                     korting = 1;
                 }
             }
         }
-        if (betaalwijze.betaal(getTotaalPrijs(klant)-korting)) {
-            this.geld += (getTotaalPrijs(klant)-korting);
+        try {
+            betaalwijze.betaal(getTotaalPrijs(klant) - korting);
+            this.geld += (getTotaalPrijs(klant) - korting);
             this.artikelen += getAantalArtikelen(klant);
-        } else {
-            System.out.println("Transactie geweigerd");
+        } catch (TeWeinigGeldException e) {
+            System.out.println("Transactie geweigerd " + persoon.getVoornaam() + ' ' + persoon.getAchternaam());
         }
     }
 
@@ -83,8 +90,9 @@ public class Kassa {
     public void setGeld(double geld) {
         this.geld = geld;
     }
+
     /**
-     * totaalprijs per Dienblad
+     * totaalprijs per kantine.Dienblad
      */
     public double getTotaalPrijs(Dienblad klant) {
         double prijs = 0;
@@ -100,7 +108,7 @@ public class Kassa {
     public int getAantalArtikelen(Dienblad klant) {
         int hoeveelArtikelen = 0;
         Iterator<Artikel> itr = klant.getIterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             System.out.println(itr.next().getNaam());
             hoeveelArtikelen++;
         }

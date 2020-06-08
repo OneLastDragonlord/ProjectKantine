@@ -1,3 +1,7 @@
+package persoon;
+
+import utility.Datum;
+
 public class Student extends Persoon {
     private int studentNummer;
     private String studieRichting;

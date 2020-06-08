@@ -1,3 +1,5 @@
+package kantine;
+
 import java.util.*;
 
 public class KantineAanbod {
@@ -13,11 +15,11 @@ public class KantineAanbod {
      * dimensies van de drie arrays moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
-        aanbod = new HashMap<String, ArrayList<Artikel>>();
-        startVoorraad = new HashMap<String, Integer>();
-        prijzen = new HashMap<String, Double>();
+        aanbod = new HashMap<>();
+        startVoorraad = new HashMap<>();
+        prijzen = new HashMap<>();
         for (int i = 0; i < artikelnaam.length; i++) {
-            ArrayList<Artikel> artikelen = new ArrayList<Artikel>();
+            ArrayList<Artikel> artikelen = new ArrayList<>();
             for (int j = 0; j < hoeveelheid[i]; j++) {
                 artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
             }
@@ -47,7 +49,7 @@ public class KantineAanbod {
     }
 
     /**
-     * Private methode om een Artikel van de stapel artikelen af te pakken. Retourneert null als de
+     * Private methode om een kantine.Artikel van de stapel artikelen af te pakken. Retourneert null als de
      * stapel leeg is.
      */
     private Artikel getArtikel(ArrayList<Artikel> stapel) {

@@ -1,4 +1,8 @@
-public class Docent extends Persoon implements KortingskaartHouder{
+package persoon;
+import geldzaken.KortingskaartHouder;
+import utility.Datum;
+
+public class Docent extends Persoon implements KortingskaartHouder {
     private String afkorting;
     private String afdeling;
 
@@ -12,7 +16,8 @@ public class Docent extends Persoon implements KortingskaartHouder{
         this.afkorting = afkorting;
         this.afdeling = afdeling;
     }
-    public Docent(){
+
+    public Docent() {
         super();
     }
 

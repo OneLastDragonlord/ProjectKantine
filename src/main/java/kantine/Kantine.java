@@ -1,8 +1,13 @@
+package kantine;
+
+import geldzaken.Kassa;
+
 public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
     private KantineAanbod kantineAanbod;
+
     /**
      * Constructor
      */
@@ -12,13 +17,13 @@ public class Kantine {
     }
 
     /**
-     * In deze methode wordt een Persoon en Dienblad gemaakt en aan elkaar gekoppeld. Maak twee
-     * Artikelen aan en plaats deze op het dienblad. Tenslotte sluit de Persoon zich aan bij de rij
+     * In deze methode wordt een persoon.Persoon en kantine.Dienblad gemaakt en aan elkaar gekoppeld. Maak twee
+     * Artikelen aan en plaats deze op het dienblad. Tenslotte sluit de persoon.Persoon zich aan bij de rij
      * voor de kassa.
      */
     public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
-        for(String artikel : artikelnamen){
-           dienblad.voegToe(kantineAanbod.getArtikel(artikel));
+        for (String artikel : artikelnamen) {
+            dienblad.voegToe(kantineAanbod.getArtikel(artikel));
         }
         kassarij.sluitAchteraan(dienblad);
     }
@@ -34,9 +39,9 @@ public class Kantine {
     }
 
 
-   public Kassa getKassa() {
-       return kassa;
-   }
+    public Kassa getKassa() {
+        return kassa;
+    }
 
     public void setKantineAanbod(KantineAanbod kantineAanbod) {
         this.kantineAanbod = kantineAanbod;

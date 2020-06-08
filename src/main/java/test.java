@@ -1,3 +1,6 @@
+import geldzaken.Administratie;
+import kantine.KantineSimulatie_2;
+
 import java.util.Arrays;
 
 public class test {
