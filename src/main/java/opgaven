@@ -1,5 +1,5 @@
 Opgave 1
-    c. kan alleen worden aangeroepen door overerving
+    c. kan alleen worden aangeroepen door overerving, en kan dus worden aangeroepen door subklasse
 Opgave 3
     a. Je kan geen instantie maken van een interface, dit zijn functies die de class moet hebben als de interface wordt geimplementeerd.
         ook zijn het lege functies maar sinds kort kan je wel een default implementation meegeven.

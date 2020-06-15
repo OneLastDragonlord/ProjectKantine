@@ -17,8 +17,8 @@ public class Pinpas extends Betaalwijze {
      * Methode om betaling af te handelen
      */
     public void betaal(double tebetalen) throws TeWeinigGeldException {
-        if ((super.saldo - kredietlimiet) >= tebetalen) {
-            super.saldo -= tebetalen;
+        if ((saldo - kredietlimiet) >= tebetalen) {
+            saldo -= tebetalen;
         } else {
             throw new TeWeinigGeldException("arm");
         }
