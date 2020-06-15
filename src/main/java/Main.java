@@ -1,10 +1,25 @@
 import geldzaken.Administratie;
 import kantine.KantineSimulatie_2;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.Arrays;
 
-public class test {
+public class Main {
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
+            Persistence.createEntityManagerFactory("KantineSimulatie");
+    private EntityManager manager;
+
+    public void runVoorbeeld(){
+        manager.close();
+        ENTITY_MANAGER_FACTORY.close();
+    }
+
     public static void main(String[] args) {
+        Main runner = new Main();
+        runner.runVoorbeeld();
+
         int dagen;
 
         if (args.length == 0) {

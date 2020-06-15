@@ -15,6 +15,8 @@ public class KantineAanbod {
      * dimensies van de drie arrays moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
+        Random random = new Random();
+        int randomKorting = random.nextInt(artikelnaam.length);
         aanbod = new HashMap<>();
         startVoorraad = new HashMap<>();
         prijzen = new HashMap<>();
@@ -24,7 +26,11 @@ public class KantineAanbod {
                 artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
-            prijzen.put(artikelnaam[i], prijs[i]);
+            if(i!=randomKorting) {
+                prijzen.put(artikelnaam[i], prijs[i]);
+            } else {
+                prijzen.put(artikelnaam[i], prijs[i]*0.8);
+            }
             aanbod.put(artikelnaam[i], artikelen);
         }
     }
