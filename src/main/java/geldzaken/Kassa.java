@@ -33,6 +33,7 @@ public class Kassa {
         System.out.println(persoon instanceof KortingskaartHouder);
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
         double korting = 0;
+        double dagelijkKorting = getTotaalKorting(klant);;
         if (persoon instanceof KortingskaartHouder) {
             KortingskaartHouder persoon1 = (KortingskaartHouder) persoon;
             if (!persoon1.heeftMaximum()) {
@@ -44,9 +45,17 @@ public class Kassa {
                 }
             }
         }
+
+
+
         try {
-            betaalwijze.betaal(getTotaalPrijs(klant) - korting);
-            this.geld += (getTotaalPrijs(klant) - korting);
+            if(persoon instanceof KortingskaartHouder) {
+                betaalwijze.betaal(getTotaalPrijs(klant) - korting);
+                this.geld += (getTotaalPrijs(klant) - korting);
+            }else{
+                betaalwijze.betaal(getTotaalPrijs(klant) - dagelijkKorting);
+                this.geld += (getTotaalPrijs(klant) - dagelijkKorting);
+            }
             this.artikelen += getAantalArtikelen(klant);
         } catch (TeWeinigGeldException e) {
             System.out.println("Transactie geweigerd " + persoon.getVoornaam() + ' ' + persoon.getAchternaam());
@@ -103,6 +112,16 @@ public class Kassa {
             System.out.println(temp);
         }
         return prijs;
+    }
+
+    public double getTotaalKorting(Dienblad klant) {
+        double korting = 0;
+        Iterator<Artikel> itr = klant.getIterator();
+        while (itr.hasNext()) {
+            double temp = itr.next().getKorting();
+            korting += temp;
+        }
+        return korting;
     }
 
     public int getAantalArtikelen(Dienblad klant) {
