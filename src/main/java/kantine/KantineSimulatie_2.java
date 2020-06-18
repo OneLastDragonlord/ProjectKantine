@@ -2,13 +2,19 @@ package kantine;
 
 import geldzaken.Administratie;
 import geldzaken.Contant;
+import geldzaken.Factuur;
 import kantine.Dienblad;
 import kantine.Kantine;
 import kantine.KantineAanbod;
 import persoon.Docent;
 import persoon.KantineMedewerker;
 import persoon.Student;
+import utility.Datum;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 public class KantineSimulatie_2 {
@@ -52,16 +58,38 @@ public class KantineSimulatie_2 {
     private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
+
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
+            Persistence.createEntityManagerFactory("Main");
+    private EntityManager manager;
+
+
     /**
      * Constructor
      */
+//    Main runner = new Main();
+//        runner.runVoorbeeld();
     public KantineSimulatie_2() {
-        kantine = new Kantine();
+        runVoorbeeld();
+        kantine = new Kantine(manager);
         random = new Random();
         int[] hoeveelheden =
                 getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
         kantine.setKantineAanbod(kantineaanbod);
+
+    }
+
+    public void runVoorbeeld() {
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        Student persoon = new Student(1, "henk", "jan", new Datum(29, 5, 2000), 'm', 1, "SCMI");
+        // create(persoon);
+
+    }
+
+    public void exitVoorbeeld() {
+        manager.close();
+        ENTITY_MANAGER_FACTORY.close();
     }
 
     /**
@@ -110,6 +138,41 @@ public class KantineSimulatie_2 {
 
         return artikelen;
     }
+
+    public List<Double> getTotalePrijs() {
+        List<Double> totalen = manager
+                .createQuery("SELECT SUM(totaal) FROM  Factuur",
+                        Double.class).getResultList();
+        return totalen;
+    }
+
+    public List<Double> getTotaleKorting() {
+        List<Double> totalen = manager
+                .createQuery("SELECT SUM(totalekorting) FROM  Factuur",
+                        Double.class).getResultList();
+        return totalen;
+    }
+
+    public List<Double> getAverageKorting() {
+        List<Double> totalen = manager
+                .createQuery("SELECT AVG(totalekorting) FROM  Factuur",
+                        Double.class).getResultList();
+        return totalen;
+    }
+
+    public List<Double> getAveragePrijs() {
+        List<Double> totalen = manager
+                .createQuery("SELECT AVG(totaal) FROM  Factuur",
+                        Double.class).getResultList();
+        return totalen;
+    }
+    public List<Double> getHoogsteOmzet() {
+        List<Double> totalen = manager
+                .createQuery("SELECT totaal FROM  Factuur   ORDER BY totaal DESC",
+                        Double.class).setMaxResults(3).getResultList();
+        return totalen;
+    }
+
 
     /**
      * Deze methode simuleert een aantal dagen
@@ -188,8 +251,14 @@ public class KantineSimulatie_2 {
             kantine.getKassa().resetKassa();
 
         }
-        System.out.printf("%.2f\n", Administratie.berekenGemiddeldAantal(aantalKlanten));
-        System.out.printf("%.2f\n", Administratie.berekenGemiddeldeOmzet(omzet));
-        System.out.println(Arrays.toString(Administratie.berekenDagOmzet(omzet)));
+        //System.out.printf("%.2f\n", Administratie.berekenGemiddeldAantal(aantalKlanten));
+        //System.out.printf("%.2f\n", Administratie.berekenGemiddeldeOmzet(omzet));
+        //System.out.println(Arrays.toString(Administratie.berekenDagOmzet(omzet)));
+        System.out.println("De totale prijs: " + getTotalePrijs());
+        System.out.println("De totale korting: " + getTotaleKorting());
+        System.out.println("De gemiddelde prijs: " + getAveragePrijs());
+        System.out.println("De gemiddelde korting: " + getAverageKorting());
+        System.out.println("De 3 hoogste: " + getHoogsteOmzet());
+        exitVoorbeeld();
     }
 }

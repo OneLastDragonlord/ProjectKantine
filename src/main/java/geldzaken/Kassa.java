@@ -7,19 +7,24 @@ import persoon.Persoon;
 
 import java.time.LocalDate;
 import java.util.Iterator;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 public class Kassa {
 
     private int artikelen;
     private double geld;
+    private EntityManager manager;
 
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) {
+    public Kassa(KassaRij kassarij, EntityManager manager) {
         this.artikelen = 0;
         this.geld = 0;
+        this.manager = manager;
     }
+
 
     /**
      * Vraag het aantal artikelen en de totaalprijs op. Tel deze gegevens op bij de controletotalen
@@ -30,11 +35,29 @@ public class Kassa {
      */
     public void rekenAf(Dienblad klant) {
         Factuur factuur = new Factuur(klant,LocalDate.of(2019,5,16));
+        create(factuur);
         this.geld += factuur.getTotaal();
         this.artikelen += factuur.getArtikelen();
     }
 
+    public void create(Factuur factuur) {
+        EntityTransaction transaction = null;
+        try {
+            // Get a transaction, sla de student gegevens op en commit de transactie
+            transaction = manager.getTransaction();
+            transaction.begin();
+            manager.persist(factuur);
+            transaction.commit();
 
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+              //  System.out.println("hoi");
+            }
+            ex.printStackTrace();
+        }
+    }
     /**
      * Geeft het aantal artikelen dat de kassa heeft gepasseerd, vanaf het moment dat de methode
      * resetWaarden is aangeroepen.

@@ -7,15 +7,33 @@ import persoon.Persoon;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Iterator;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "factuur")
 
 public class Factuur implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private Long id;
+    @Column(name = "datum", nullable = false)
     private LocalDate datum;
     private double korting;
+    @Column(name = "totaal", nullable = false)
     private double totaal;
-    private double newTotaal;
+    @Column(name = "artikelen", nullable = false)
     private int artikelen;
-
+    private double totalekorting;
+    //    @OneToMany(targetEntity = StudieInschrijving.class, mappedBy = "student",
+//            cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<StudieInschrijving> studies;
+//    @Embedded
+//    private StudentKaart kaart;
+    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinTable(name = "student_telefoon", joinColumns = @JoinColumn(name = "id"),
+    //      inverseJoinColumns = @JoinColumn(name = "telefoon_id"))
     public Factuur() {
         totaal = 0;
         korting = 0;
@@ -30,7 +48,7 @@ public class Factuur implements Serializable {
 
     /**
      * Verwerk artikelen en pas kortingen toe.
-     *
+     * <p>
      * Zet het totaal te betalen bedrag en het
      * totaal aan ontvangen kortingen.
      *
@@ -58,10 +76,11 @@ public class Factuur implements Serializable {
         try {
             if (persoon instanceof KortingskaartHouder) {
                 betaalwijze.betaal(getTotaalPrijs(klant) - korting);
-                this.newTotaal += (getTotaalPrijs(klant) - korting);
+                this.totaal += (getTotaalPrijs(klant) - korting);
+                totalekorting = korting;
             } else {
                 betaalwijze.betaal(getTotaalPrijs(klant) - dagelijkKorting);
-                this.newTotaal += (getTotaalPrijs(klant) - dagelijkKorting);
+                this.totaal += (getTotaalPrijs(klant) - dagelijkKorting);
             }
             this.artikelen += getAantalArtikelen(klant);
         } catch (TeWeinigGeldException e) {
@@ -86,16 +105,16 @@ public class Factuur implements Serializable {
     }
 
     /*
-         * @return de toegepaste korting
-    */
+     * @return de toegepaste korting
+     */
     public double getTotaalKorting(Dienblad klant) {
-        double korting = 0;
+        double dagelijksekorting = 0;
         Iterator<Artikel> itr = klant.getIterator();
         while (itr.hasNext()) {
             double temp = itr.next().getKorting();
-            korting += temp;
+            dagelijksekorting += temp;
         }
-        return korting;
+        return dagelijksekorting;
     }
 
     public int getAantalArtikelen(Dienblad klant) {
@@ -107,11 +126,14 @@ public class Factuur implements Serializable {
         }
         return hoeveelArtikelen;
     }
+
     /*
-         * @return een printbaar bonnetje
-    */
+     * @return een printbaar bonnetje
+     */
     public String toString() {
-        return "Factuurdatum: "+ this.datum + "\nbedrag: "+this.totaal+  "\nKorting: "+ this.korting + "\nTotaalbedrag: "+ (this.totaal-this.korting);
+        String factuurdatum = "Factuurdatum: " + this.datum;
+        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f", factuurdatum, this.totaal, this.totalekorting,(this.totaal - this.korting));
+        return uitkomst;
     }
 
     public double getKorting() {
@@ -138,3 +160,9 @@ public class Factuur implements Serializable {
         this.artikelen = artikelen;
     }
 }
+
+
+
+
+
+
