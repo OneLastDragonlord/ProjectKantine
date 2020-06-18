@@ -10,6 +10,7 @@ public class Student extends Persoon {
         super(BSN, voornaam, achternaam, geboorteDatum, geslacht);
         this.studentNummer = studentNummer;
         this.studieRichting = studieRichting;
+
     }
 
     public Student(int studentNummer, String studieRichting) {

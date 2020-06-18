@@ -1,24 +1,33 @@
 import geldzaken.Administratie;
 import kantine.KantineSimulatie_2;
+import persoon.Student;
+import utility.Datum;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.Arrays;
 
 public class Main {
-    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
-            Persistence.createEntityManagerFactory("KantineSimulatie");
-    private EntityManager manager;
+//    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
+//            Persistence.createEntityManagerFactory("Main");
+//    private EntityManager manager;
 
-    public void runVoorbeeld(){
-        manager.close();
-        ENTITY_MANAGER_FACTORY.close();
-    }
+//    public void runVoorbeeld(){
+//        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+//        Student persoon = new Student(1,"henk","jan", new Datum(29,5,2000), 'm' ,1,"SCMI");
+//        create(persoon);
+//
+//    }
+//    public void exitVoorbeeld(){
+//        manager.close();
+//        ENTITY_MANAGER_FACTORY.close();
+//    }
 
     public static void main(String[] args) {
-        Main runner = new Main();
-        runner.runVoorbeeld();
+//        Main runner = new Main();
+//        runner.runVoorbeeld();
 
         int dagen;
 
@@ -32,8 +41,24 @@ public class Main {
         System.out.printf("%.4f\n", Administratie.berekenGemiddeldAantal(new int[]{45, 56, 34, 39, 40, 31}));
         System.out.printf("%.4f\n", Administratie.berekenGemiddeldeOmzet(new double[]{567.70, 498.25, 458.90}));
         System.out.println(Arrays.toString(Administratie.berekenDagOmzet(new double[]{321.35, 450.50, 210.45, 190.85, 193.25, 159.90, 214.25, 220.90, 201.90, 242.70, 260.35})));
-
+       // runner.exitVoorbeeld();
     }
 
+//    public void create(Student student) {
+//        EntityTransaction transaction = null;
+//        try {
+//            // Get a transaction, sla de student gegevens op en commit de transactie
+//            transaction = manager.getTransaction();
+//            transaction.begin();
+//            manager.persist(student);
+//            transaction.commit();
+//        } catch (Exception ex) {
+//            // If there are any exceptions, roll back the changes
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            ex.printStackTrace();
+//        }
+//    }
 
 }

@@ -1,6 +1,7 @@
 package kantine;
 
 import geldzaken.Administratie;
+import geldzaken.Contant;
 import kantine.Dienblad;
 import kantine.Kantine;
 import kantine.KantineAanbod;
@@ -142,14 +143,20 @@ public class KantineSimulatie_2 {
                 //int temp = randomInt.nextInt(aantalpersonen);
                 if (j/*temp*/ < studentInt) {
                     Student persoon = new Student();
+                    persoon.setBetaalwijze(new Contant());
+                    persoon.getBetaalwijze().setSaldo(10);
                     dienblad = new Dienblad(persoon);
                     System.out.println(j/*temp*/ + "," + persoon.toString());
                 } else if (j/*temp*/ < docentInt) {
                     Docent persoon = new Docent();
+                    persoon.setBetaalwijze(new Contant());
+                    persoon.getBetaalwijze().setSaldo(35);
                     dienblad = new Dienblad(persoon);
                     System.out.println(j/*temp*/ + "," + persoon.toString());
                 } else {
                     KantineMedewerker persoon = new KantineMedewerker();
+                    persoon.setBetaalwijze(new Contant());
+                    persoon.getBetaalwijze().setSaldo(50);
                     dienblad = new Dienblad(persoon);
                     System.out.println(j/*temp*/ + "," + persoon.toString());
                 }
