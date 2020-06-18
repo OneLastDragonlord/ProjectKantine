@@ -1,5 +1,6 @@
 package geldzaken;
 
+import jdk.jfr.Unsigned;
 import kantine.Artikel;
 import kantine.Dienblad;
 import persoon.Persoon;
@@ -15,25 +16,19 @@ import javax.persistence.*;
 public class Factuur implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
     private Long id;
     @Column(name = "datum", nullable = false)
     private LocalDate datum;
-    private double korting;
     @Column(name = "totaal", nullable = false)
     private double totaal;
     @Column(name = "artikelen", nullable = false)
     private int artikelen;
+    @Column(name = "totalekorting", nullable = false)
     private double totalekorting;
-    //    @OneToMany(targetEntity = StudieInschrijving.class, mappedBy = "student",
-//            cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<StudieInschrijving> studies;
-//    @Embedded
-//    private StudentKaart kaart;
-    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinTable(name = "student_telefoon", joinColumns = @JoinColumn(name = "id"),
-    //      inverseJoinColumns = @JoinColumn(name = "telefoon_id"))
+    private double korting;
+
     public Factuur() {
         totaal = 0;
         korting = 0;
@@ -132,7 +127,7 @@ public class Factuur implements Serializable {
      */
     public String toString() {
         String factuurdatum = "Factuurdatum: " + this.datum;
-        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f", factuurdatum, this.totaal, this.totalekorting,(this.totaal - this.korting));
+        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f", factuurdatum, this.totaal, this.totalekorting, (this.totaal - this.korting));
         return uitkomst;
     }
 
