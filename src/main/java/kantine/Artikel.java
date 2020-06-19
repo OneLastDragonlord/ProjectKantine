@@ -1,8 +1,16 @@
 package kantine;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+
+@Embeddable
 public class Artikel {
+    @Column
     private String naam;
+    @Column
     private double prijs;
+    @Transient
     private double korting;
 
     public Artikel(String naam, double prijs) {

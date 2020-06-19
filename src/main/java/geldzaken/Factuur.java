@@ -7,7 +7,9 @@ import persoon.Persoon;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -17,7 +19,7 @@ public class Factuur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
+    @Column(name = "factuur_id", unique = true)
     private Long id;
     @Column(name = "datum", nullable = false)
     private LocalDate datum;
@@ -27,7 +29,10 @@ public class Factuur implements Serializable {
     private int artikelen;
     @Column(name = "totalekorting", nullable = false)
     private double totalekorting;
+    @Transient
     private double korting;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private ArrayList<FactuurRegel> regels;
 
     public Factuur() {
         totaal = 0;
@@ -92,7 +97,9 @@ public class Factuur implements Serializable {
         double prijs = 0;
         Iterator<Artikel> itr = klant.getIterator();
         while (itr.hasNext()) {
-            double temp = itr.next().getPrijs();
+            Artikel artikel = itr.next();
+            double temp = artikel.getPrijs();
+            regels.add(new FactuurRegel(Factuur.this,artikel));
             prijs += temp;
             System.out.println(temp);
         }
@@ -154,6 +161,8 @@ public class Factuur implements Serializable {
     public void setArtikelen(int artikelen) {
         this.artikelen = artikelen;
     }
+
+
 }
 
 
