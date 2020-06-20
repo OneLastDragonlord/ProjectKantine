@@ -4,13 +4,13 @@ import kantine.Artikel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 @Table(name = "factuurregel")
-
 public class FactuurRegel implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "regel_id", unique = true)
     private long id;
 
@@ -29,6 +29,8 @@ public class FactuurRegel implements Serializable {
     }
 
     public String toString(){
-        return "a";
+        return "id: "+id+"\nFactuurnr: " + factuur.getId() + "\nArtikel: "+artikel.getNaam();
     }
+
+
 }

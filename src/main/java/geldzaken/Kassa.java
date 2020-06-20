@@ -34,7 +34,7 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        Factuur factuur = new Factuur(klant,LocalDate.of(2019,5,16));
+        Factuur factuur = new Factuur(klant,LocalDate.of(2019,5,16),manager);
         create(factuur);
         this.geld += factuur.getTotaal();
         this.artikelen += factuur.getArtikelen();

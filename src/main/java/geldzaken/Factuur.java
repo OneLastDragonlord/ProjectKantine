@@ -31,17 +31,20 @@ public class Factuur implements Serializable {
     private double totalekorting;
     @Transient
     private double korting;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private ArrayList<FactuurRegel> regels;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<FactuurRegel> regels = new ArrayList<>();
+    @Transient
+    EntityManager manager;
 
     public Factuur() {
         totaal = 0;
         korting = 0;
     }
 
-    public Factuur(Dienblad klant, LocalDate datum) {
+    public Factuur(Dienblad klant, LocalDate datum,EntityManager manager) {
         this();
         this.datum = datum;
+        this.manager = manager;
 
         verwerkBestelling(klant);
     }
@@ -62,25 +65,28 @@ public class Factuur implements Serializable {
         Betaalwijze betaalwijze = persoon.getBetaalwijze();
         double korting = 0;
         double dagelijkKorting = getTotaalKorting(klant);
+        double totaalPrijs = getTotaalPrijs(klant);
         if (persoon instanceof KortingskaartHouder) {
             KortingskaartHouder persoon1 = (KortingskaartHouder) persoon;
             if (!persoon1.heeftMaximum()) {
-                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage() / 100;
+                korting = totaalPrijs * persoon1.geefKortingsPercentage() / 100;
             } else {
-                korting = getTotaalPrijs(klant) * persoon1.geefKortingsPercentage() / 100;
+                korting = totaalPrijs * persoon1.geefKortingsPercentage() / 100;
                 if (korting > persoon1.geefMaximum()) {
                     korting = 1;
                 }
             }
         }
+
         try {
             if (persoon instanceof KortingskaartHouder) {
-                betaalwijze.betaal(getTotaalPrijs(klant) - korting);
-                this.totaal += (getTotaalPrijs(klant) - korting);
+                betaalwijze.betaal(totaalPrijs - korting);
+                this.totaal += (totaalPrijs - korting);
                 totalekorting = korting;
             } else {
-                betaalwijze.betaal(getTotaalPrijs(klant) - dagelijkKorting);
-                this.totaal += (getTotaalPrijs(klant) - dagelijkKorting);
+
+                betaalwijze.betaal(totaalPrijs - dagelijkKorting);
+                this.totaal += (totaalPrijs - dagelijkKorting);
             }
             this.artikelen += getAantalArtikelen(klant);
         } catch (TeWeinigGeldException e) {
@@ -99,7 +105,9 @@ public class Factuur implements Serializable {
         while (itr.hasNext()) {
             Artikel artikel = itr.next();
             double temp = artikel.getPrijs();
-            regels.add(new FactuurRegel(Factuur.this,artikel));
+            FactuurRegel regel = new FactuurRegel(Factuur.this,artikel);
+            regels.add(regel);
+            System.out.println(regels);
             prijs += temp;
             System.out.println(temp);
         }
@@ -162,7 +170,27 @@ public class Factuur implements Serializable {
         this.artikelen = artikelen;
     }
 
+    public Long getId() {
+        return id;
+    }
+    public void create(FactuurRegel factuurRegel) {
+        EntityTransaction transaction = null;
+        try {
+            // Get a transaction, sla de student gegevens op en commit de transactie
+            transaction = manager.getTransaction();
+            transaction.begin();
+            manager.persist(factuurRegel);
+            transaction.commit();
 
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+                //  System.out.println("hoi");
+            }
+            ex.printStackTrace();
+        }
+    }
 }
 
 

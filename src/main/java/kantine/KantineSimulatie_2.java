@@ -244,7 +244,7 @@ public class KantineSimulatie_2 {
             // verwerk rij voor de kassa
             kantine.verwerkRijVoorKassa();
             // toon dagtotalen (artikelen en geld in kassa)
-            System.out.printf("%s, %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
+            System.out.printf("Totaal artikelen per dag: %s, Totale winst: %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
             aantalKlanten[i] = kantine.getKassa().aantalArtikelen();
             omzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
             // reset de kassa voor de volgende dag
