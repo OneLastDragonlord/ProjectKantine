@@ -188,20 +188,18 @@ public class KantineSimulatie_2 {
 
     public List<FactuurRegel> getTopDrie() {
         List<FactuurRegel> totalen = manager
-                .createQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC",
-                        FactuurRegel.class).setMaxResults(3).getResultList();
+                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC").setMaxResults(3).getResultList();
 
         return totalen;
     }
 
     public List<FactuurRegel> getOmzetHO() {
         List<FactuurRegel> totalen = manager
-                .createQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC",
-                        FactuurRegel.class).setMaxResults(3).getResultList();
+                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC").setMaxResults(3).getResultList();
 
         return totalen;
     }
-"SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC
+
 
 
     /**
