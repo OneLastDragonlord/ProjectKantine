@@ -18,9 +18,9 @@ import javax.persistence.*;
 public class Factuur implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "factuur_id", unique = true)
-    private Long id;
+    private Long factuurId;
     @Column(name = "datum", nullable = false)
     private LocalDate datum;
     @Column(name = "totaal", nullable = false)
@@ -142,7 +142,7 @@ public class Factuur implements Serializable {
      */
     public String toString() {
         String factuurdatum = "Factuurdatum: " + this.datum;
-        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f", factuurdatum, this.totaal, this.totalekorting, (this.totaal - this.korting));
+        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f\nFactuurregel: %s", factuurdatum, this.totaal, this.totalekorting, (this.totaal - this.korting), regels.toString());
         return uitkomst;
     }
 
@@ -171,7 +171,7 @@ public class Factuur implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return factuurId;
     }
     public void create(FactuurRegel factuurRegel) {
         EntityTransaction transaction = null;
@@ -191,6 +191,8 @@ public class Factuur implements Serializable {
             ex.printStackTrace();
         }
     }
+
+
 }
 
 

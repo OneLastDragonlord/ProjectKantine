@@ -4,15 +4,16 @@ import kantine.Artikel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "factuurregel")
 public class FactuurRegel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "regel_id", unique = true)
-    private long id;
+    private long factuurRegelId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "factuur")
@@ -29,8 +30,9 @@ public class FactuurRegel implements Serializable {
     }
 
     public String toString(){
-        return "id: "+id+"\nFactuurnr: " + factuur.getId() + "\nArtikel: "+artikel.getNaam();
+        return "id: "+factuurRegelId+"\nFactuurnr: " + factuur.getId() + "\nArtikel: "+artikel.getNaam();
     }
+
 
 
 }

@@ -173,6 +173,13 @@ public class KantineSimulatie_2 {
         return totalen;
     }
 
+    public List<Double> getKortingArtikel() {
+        List<Double> totalen = manager
+                .createQuery("SELECT AVG(totalekorting) FROM  Factuur SORT BY factuur_id",
+                        Double.class).getResultList();
+        return totalen;
+    }
+
 
     /**
      * Deze methode simuleert een aantal dagen
@@ -225,7 +232,7 @@ public class KantineSimulatie_2 {
                 }
 
 
-                int aantalartikelen = 1;
+                int aantalartikelen = 2;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
@@ -247,6 +254,9 @@ public class KantineSimulatie_2 {
             System.out.printf("Totaal artikelen per dag: %s, Totale winst: %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
             aantalKlanten[i] = kantine.getKassa().aantalArtikelen();
             omzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
+            for(int j = 1; j <= kantine.getKassa().aantalArtikelen(); j++){
+
+            }
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();
 
@@ -254,11 +264,13 @@ public class KantineSimulatie_2 {
         //System.out.printf("%.2f\n", Administratie.berekenGemiddeldAantal(aantalKlanten));
         //System.out.printf("%.2f\n", Administratie.berekenGemiddeldeOmzet(omzet));
         //System.out.println(Arrays.toString(Administratie.berekenDagOmzet(omzet)));
+
         System.out.println("De totale prijs: " + getTotalePrijs());
         System.out.println("De totale korting: " + getTotaleKorting());
         System.out.println("De gemiddelde prijs: " + getAveragePrijs());
         System.out.println("De gemiddelde korting: " + getAverageKorting());
         System.out.println("De 3 hoogste: " + getHoogsteOmzet());
+        System.out.println("Korting per artikel: " + getKortingArtikel());
         exitVoorbeeld();
     }
 }
