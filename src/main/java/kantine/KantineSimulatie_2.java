@@ -1,8 +1,6 @@
 package kantine;
 
-import geldzaken.Administratie;
 import geldzaken.Contant;
-import geldzaken.Factuur;
 import geldzaken.FactuurRegel;
 import kantine.Dienblad;
 import kantine.Kantine;
@@ -27,9 +25,6 @@ public class KantineSimulatie_2 {
 
     // kantine
     private Kantine kantine;
-
-    // kantineaanbod
-    private KantineAanbod kantineaanbod;
 
     // random generator
     private Random random;
@@ -81,7 +76,8 @@ public class KantineSimulatie_2 {
         random = new Random();
         int[] hoeveelheden =
                 getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
-        kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
+        // kantineaanbod
+        KantineAanbod kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
         kantine.setKantineAanbod(kantineaanbod);
 
     }
@@ -146,58 +142,50 @@ public class KantineSimulatie_2 {
     }
 
     public List<Double> getTotalePrijs() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT SUM(totaal) FROM  Factuur",
                         Double.class).getResultList();
-        return totalen;
     }
 
     public List<Double> getTotaleKorting() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT SUM(totalekorting) FROM  Factuur",
                         Double.class).getResultList();
-        return totalen;
     }
 
     public List<Double> getAverageKorting() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT AVG(totalekorting) FROM  Factuur",
                         Double.class).getResultList();
-        return totalen;
     }
 
     public List<Double> getAveragePrijs() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT AVG(totaal) FROM  Factuur",
                         Double.class).getResultList();
-        return totalen;
     }
     public List<Double> getHoogsteOmzet() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT totaal FROM  Factuur   ORDER BY totaal DESC",
                         Double.class).setMaxResults(3).getResultList();
-        return totalen;
     }
 
     public List<Double> getKortingArtikel() {
-        List<Double> totalen = manager
+        return manager
                 .createQuery("SELECT (totalekorting/artikelen) FROM Factuur factuur_id ORDER BY factuur_id",
                         Double.class).getResultList();
-        return totalen;
     }
 
     public List<FactuurRegel> getTopDrie() {
-        List<FactuurRegel> totalen = manager
-                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC").setMaxResults(3).getResultList();
 
-        return totalen;
+        return (List<FactuurRegel>) manager
+                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC").setMaxResults(3).getResultList();
     }
 
     public List<FactuurRegel> getOmzetHO() {
-        List<FactuurRegel> totalen = manager
-                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC").setMaxResults(3).getResultList();
 
-        return totalen;
+        return (List<FactuurRegel>) manager
+                .createNativeQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC").setMaxResults(3).getResultList();
     }
 
 
@@ -214,16 +202,11 @@ public class KantineSimulatie_2 {
         double[] omzet = new double[dagen];
         for (int i = 0; i < dagen; i++) {
 
-            //niet random personen
-            int aantalpersonen = 3;
-            int studentInt = 1;
-            int docentInt = 2;
-
             // bedenk hoeveel personen vandaag binnen lopen
-//            int aantalpersonen = 100 ;
-//            Random randomInt = new Random();
-//            int studentInt = 89;
-//            int docentInt = 99;
+            int aantalpersonen = 100 ;
+            Random randomInt = new Random();
+            int studentInt = 89;
+            int docentInt = 99;
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
@@ -231,25 +214,25 @@ public class KantineSimulatie_2 {
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
                 Dienblad dienblad;
-                //int temp = randomInt.nextInt(aantalpersonen);
-                if (j/*temp*/ < studentInt) {
+                int temp = randomInt.nextInt(aantalpersonen);
+                if (temp < studentInt) {
                     Student persoon = new Student();
                     persoon.setBetaalwijze(new Contant());
                     persoon.getBetaalwijze().setSaldo(10);
                     dienblad = new Dienblad(persoon);
-                    System.out.println(j/*temp*/ + "," + persoon.toString());
-                } else if (j/*temp*/ < docentInt) {
+                    System.out.println(temp + "," + persoon.toString());
+                } else if (temp < docentInt) {
                     Docent persoon = new Docent();
                     persoon.setBetaalwijze(new Contant());
                     persoon.getBetaalwijze().setSaldo(35);
                     dienblad = new Dienblad(persoon);
-                    System.out.println(j/*temp*/ + "," + persoon.toString());
+                    System.out.println(temp+ "," + persoon.toString());
                 } else {
                     KantineMedewerker persoon = new KantineMedewerker();
                     persoon.setBetaalwijze(new Contant());
                     persoon.getBetaalwijze().setSaldo(50);
                     dienblad = new Dienblad(persoon);
-                    System.out.println(j/*temp*/ + "," + persoon.toString());
+                    System.out.println(temp + "," + persoon.toString());
                 }
 
 
@@ -275,9 +258,6 @@ public class KantineSimulatie_2 {
             System.out.printf("Totaal artikelen per dag: %s, Totale winst: %.2f %n", kantine.getKassa().aantalArtikelen(), kantine.getKassa().hoeveelheidGeldInKassa());
             aantalKlanten[i] = kantine.getKassa().aantalArtikelen();
             omzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
-            for(int j = 1; j <= kantine.getKassa().aantalArtikelen(); j++){
-
-            }
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();
 

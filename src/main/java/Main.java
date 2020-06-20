@@ -1,13 +1,4 @@
-import geldzaken.Administratie;
 import kantine.KantineSimulatie_2;
-import persoon.Student;
-import utility.Datum;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.util.Arrays;
 
 public class Main {
 

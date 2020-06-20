@@ -4,7 +4,6 @@ import kantine.Artikel;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "factuurregel")
@@ -29,8 +28,9 @@ public class FactuurRegel implements Serializable {
         this.artikel = artikel;
     }
 
+    @Override
     public String toString(){
-        return "id: "+factuurRegelId+"\nFactuurnr: " + factuur.getId() + "\nArtikel: "+artikel.getNaam();
+        return "\nArtikel: "+artikel.getNaam() + ", Prijs: "+artikel.getPrijs();
     }
 
 

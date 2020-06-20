@@ -1,12 +1,9 @@
 package geldzaken;
 
-import kantine.Artikel;
 import kantine.Dienblad;
 import kantine.KassaRij;
-import persoon.Persoon;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -94,13 +91,6 @@ public class Kassa {
     public void setGeld(double geld) {
         this.geld = geld;
     }
-
-    /**
-     * totaalprijs per kantine.Dienblad
-     */
-
-
-
 
 
 }

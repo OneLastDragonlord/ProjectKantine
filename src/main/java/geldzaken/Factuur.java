@@ -1,6 +1,5 @@
 package geldzaken;
 
-import jdk.jfr.Unsigned;
 import kantine.Artikel;
 import kantine.Dienblad;
 import persoon.Persoon;
@@ -107,9 +106,7 @@ public class Factuur implements Serializable {
             double temp = artikel.getPrijs();
             FactuurRegel regel = new FactuurRegel(Factuur.this,artikel);
             regels.add(regel);
-            System.out.println(regels);
             prijs += temp;
-            System.out.println(temp);
         }
         return prijs;
     }
@@ -142,8 +139,7 @@ public class Factuur implements Serializable {
      */
     public String toString() {
         String factuurdatum = "Factuurdatum: " + this.datum;
-        String uitkomst = String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f\nFactuurregel: %s", factuurdatum, this.totaal, this.totalekorting, (this.totaal - this.korting), regels.toString());
-        return uitkomst;
+        return String.format("%s\nBedrag: %.2f\nKorting: %.2f\nTotaalbedrag: %.2f\nFactuurregels: \n%s", factuurdatum, this.totaal, this.totalekorting, (this.totaal - this.korting), regels.toString());
     }
 
     public double getKorting() {
