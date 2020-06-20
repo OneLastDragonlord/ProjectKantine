@@ -3,6 +3,7 @@ package kantine;
 import geldzaken.Administratie;
 import geldzaken.Contant;
 import geldzaken.Factuur;
+import geldzaken.FactuurRegel;
 import kantine.Dienblad;
 import kantine.Kantine;
 import kantine.KantineAanbod;
@@ -11,13 +12,18 @@ import persoon.KantineMedewerker;
 import persoon.Student;
 import utility.Datum;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.*;
 
+
+@NamedQuery(
+        name="TopDrie",
+        query="SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC"
+)
+
 public class KantineSimulatie_2 {
+
+
 
     // kantine
     private Kantine kantine;
@@ -61,8 +67,8 @@ public class KantineSimulatie_2 {
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
             Persistence.createEntityManagerFactory("Main");
+    @PersistenceContext
     private EntityManager manager;
-
 
     /**
      * Constructor
@@ -175,10 +181,27 @@ public class KantineSimulatie_2 {
 
     public List<Double> getKortingArtikel() {
         List<Double> totalen = manager
-                .createQuery("SELECT AVG(totalekorting) FROM  Factuur SORT BY factuur_id",
+                .createQuery("SELECT (totalekorting/artikelen) FROM Factuur factuur_id ORDER BY factuur_id",
                         Double.class).getResultList();
         return totalen;
     }
+
+    public List<FactuurRegel> getTopDrie() {
+        List<FactuurRegel> totalen = manager
+                .createQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY COUNT(naam) DESC",
+                        FactuurRegel.class).setMaxResults(3).getResultList();
+
+        return totalen;
+    }
+
+    public List<FactuurRegel> getOmzetHO() {
+        List<FactuurRegel> totalen = manager
+                .createQuery("SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC",
+                        FactuurRegel.class).setMaxResults(3).getResultList();
+
+        return totalen;
+    }
+"SELECT naam FROM FactuurRegel naam GROUP BY naam ORDER BY SUM(prijs) DESC
 
 
     /**
@@ -270,7 +293,9 @@ public class KantineSimulatie_2 {
         System.out.println("De gemiddelde prijs: " + getAveragePrijs());
         System.out.println("De gemiddelde korting: " + getAverageKorting());
         System.out.println("De 3 hoogste: " + getHoogsteOmzet());
-        System.out.println("Korting per artikel: " + getKortingArtikel());
+        System.out.println("Korting per factuur artikel: " + getKortingArtikel());
+        System.out.println("Top 3 artikelen: " + getTopDrie());
+        System.out.println("top 3 hoofste omzet: " + getOmzetHO());
         exitVoorbeeld();
     }
 }
